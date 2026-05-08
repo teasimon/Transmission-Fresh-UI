@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Transmission</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<div id="app">
+
+  <!-- TOP BAR -->
+  <header class="topbar">
+    <div class="topbar-left">
+      <span class="logo">
+        <svg class="logo-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+          <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+        </svg>
+        <span class="logo-text">Transmission</span>
+      </span>
+    </div>
+    <div class="topbar-center">
+      <div class="search-wrap">
+        <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+        </svg>
+        <input type="text" id="searchInput" class="search-input" placeholder="Filter… ( / )" autocomplete="off" />
+      </div>
+    </div>
+    <div class="topbar-right">
+      <div class="speed-display">
+        <span class="speed-item speed-down" id="globalDown">↓ —</span>
+        <span class="speed-item speed-up"   id="globalUp">↑ —</span>
+      </div>
+      <!-- Bandwidth -->
+      <div class="popover-wrap" id="bwWrap">
+        <button class="btn-icon" id="bwBtn" title="Speed Limits">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h4l3-9 4 18 3-9h4"/></svg>
+        </button>
+        <div class="popover" id="bwPanel">
+          <div class="bw-section">
+            <div class="bw-header"><span class="bw-dir">↓ Download limit</span><span class="bw-current" id="bwDownCurrent">Unlimited</span></div>
+            <div class="bw-presets" id="bwDownPresets"></div>
+          </div>
+          <div class="bw-divider"></div>
+          <div class="bw-section">
+            <div class="bw-header"><span class="bw-dir">↑ Upload limit</span><span class="bw-current" id="bwUpCurrent">Unlimited</span></div>
+            <div class="bw-presets" id="bwUpPresets"></div>
+          </div>
+        </div>
+      </div>
+      <!-- Alt speed -->
+      <button class="btn-icon" id="altSpeedBtn" title="Turtle mode (Alt Speed)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+      </button>
+      <!-- Settings -->
+      <button class="btn-icon" id="settingsBtn" title="Settings">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="3"/>
+          <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+        </svg>
+      </button>
+      <!-- Theme -->
+      <button class="btn-icon" id="themeBtn" title="Toggle light / dark">
+        <svg id="themeIconDark"  viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+        <svg id="themeIconLight" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      </button>
+      <!-- Add -->
+      <button class="btn-primary" id="addBtn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg>
+        <span>Add</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- FILTER BAR -->
+  <nav class="filter-bar">
+    <div class="filter-tabs" id="filterTabs">
+      <button class="filter-tab active" data-filter="all">All <span class="tab-count" id="count-all">0</span></button>
+      <button class="filter-tab" data-filter="downloading">Downloading <span class="tab-count" id="count-downloading">0</span></button>
+      <button class="filter-tab" data-filter="seeding">Seeding <span class="tab-count" id="count-seeding">0</span></button>
+      <button class="filter-tab" data-filter="paused">Paused <span class="tab-count" id="count-paused">0</span></button>
+      <button class="filter-tab" data-filter="finished">Finished <span class="tab-count" id="count-finished">0</span></button>
+      <button class="filter-tab" data-filter="checking">Checking <span class="tab-count" id="count-checking">0</span></button>
+      <button class="filter-tab" data-filter="error">Error <span class="tab-count" id="count-error">0</span></button>
+    </div>
+    <div class="filter-actions">
+      <button class="btn-ghost btn-sm" id="startAllBtn">▶ Start All</button>
+      <button class="btn-ghost btn-sm" id="stopAllBtn">⏸ Pause All</button>
+    </div>
+  </nav>
+
+  <!-- TABLE -->
+  <main class="list-wrap" id="listWrap">
+    <table class="torrent-table" id="torrentTable">
+      <thead>
+        <tr>
+          <th class="col-check"><input type="checkbox" id="selectAll" /></th>
+          <th class="col-status"></th>
+          <th class="col-name  sortable" data-sort="name">Name</th>
+          <th class="col-size  sortable hide-xs" data-sort="totalSize">Size</th>
+          <th class="col-progress">Progress</th>
+          <th class="col-down  sortable hide-sm" data-sort="rateDownload">↓</th>
+          <th class="col-up   sortable hide-sm" data-sort="rateUpload">↑</th>
+          <th class="col-eta  sortable hide-md" data-sort="eta">ETA</th>
+          <th class="col-ratio sortable hide-md" data-sort="uploadRatio">Ratio</th>
+          <th class="col-actions"></th>
+        </tr>
+      </thead>
+      <tbody id="torrentList">
+        <tr id="emptyRow">
+          <td colspan="10">
+            <div class="empty-state">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                <polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/>
+              </svg>
+              <p>No torrents</p>
+              <span>Press <kbd>A</kbd> or click <strong>Add</strong> · Right-click a row for options</span>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </main>
+
+  <!-- STATUS BAR -->
+  <footer class="statusbar">
+    <span id="freeSpace">Free: —</span>
+    <span id="torrentCount">0 torrents</span>
+    <span class="hide-xs" id="totalDown">↓ —</span>
+    <span class="hide-xs" id="totalUp">↑ —</span>
+    <span class="statusbar-right" id="connectionStatus">Connecting…</span>
+  </footer>
+</div>
+
+<!-- BULK BAR -->
+<div class="bulk-bar" id="bulkBar">
+  <span class="bulk-info" id="bulkCount">0 selected</span>
+  <div class="bulk-actions">
+    <button class="btn-ghost btn-sm" id="bulkStart">▶ Start</button>
+    <button class="btn-ghost btn-sm" id="bulkStop">⏸ Pause</button>
+    <button class="btn-ghost btn-sm" id="bulkFinish">✓ Finish</button>
+    <button class="btn-ghost btn-sm" id="bulkVerify">↻ Verify</button>
+    <button class="btn-ghost btn-sm bulk-danger" id="bulkRemove">Remove</button>
+  </div>
+  <button class="bulk-close" id="bulkDeselect">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 6 6 18M6 6l12 12"/></svg>
+    Clear
+  </button>
+</div>
+
+<!-- DRAG OVERLAY -->
+<div class="drag-overlay" id="dragOverlay">
+  <div class="drag-inner">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+      <polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/>
+    </svg>
+    <p>Drop .torrent files to add</p>
+  </div>
+</div>
+
+<!-- CONTEXT MENU -->
+<div class="ctx-menu" id="ctxMenu">
+  <button class="ctx-item" id="ctxToggle">▶ Start</button>
+  <button class="ctx-item" id="ctxVerify">↻ Verify / Recheck</button>
+  <button class="ctx-item" id="ctxInfo">ℹ Details…</button>
+  <div class="ctx-sep"></div>
+  <button class="ctx-item" id="ctxMagnet">⊕ Copy Magnet Link</button>
+  <div class="ctx-sep"></div>
+  <button class="ctx-item ctx-danger" id="ctxRemoveKeep">Remove (keep files)</button>
+  <button class="ctx-item ctx-danger" id="ctxRemoveDel">Remove + Delete files</button>
+</div>
+
+<!-- ADD MODAL -->
+<div class="modal-overlay" id="addModal" role="dialog" aria-modal="true">
+  <div class="modal">
+    <div class="modal-header">
+      <h2>Add Torrent</h2>
+      <button class="modal-close" id="addModalClose"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-tabs">
+        <button class="modal-tab active" data-tab="url">URL / Magnet</button>
+        <button class="modal-tab" data-tab="file">File</button>
+      </div>
+      <div class="tab-pane active" id="tab-url">
+        <input type="text" id="torrentUrl" class="input" placeholder="magnet:?xt=urn:btih:… or https://…" autocomplete="off" />
+      </div>
+      <div class="tab-pane" id="tab-file">
+        <label class="file-drop" id="fileDrop">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+          <span id="fileDropLabel">Drop .torrent file here or click to browse</span>
+          <input type="file" id="torrentFile" accept=".torrent" />
+        </label>
+      </div>
+      <div class="modal-field">
+        <label for="downloadDir">Download to</label>
+        <input type="text" id="downloadDir" class="input" placeholder="Default directory" autocomplete="off" />
+      </div>
+      <label class="checkbox-label"><input type="checkbox" id="startPaused" /><span>Start paused</span></label>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-ghost" id="addCancelBtn">Cancel</button>
+      <button class="btn-primary" id="addConfirmBtn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg>
+        Add Torrent
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- REMOVE MODAL -->
+<div class="modal-overlay" id="removeModal" role="dialog" aria-modal="true">
+  <div class="modal modal-sm">
+    <div class="modal-header">
+      <h2>Remove Torrent</h2>
+      <button class="modal-close" id="removeModalClose"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+    </div>
+    <div class="modal-body">
+      <p id="removeModalText">Remove this torrent?</p>
+      <label class="checkbox-label" style="margin-top:12px"><input type="checkbox" id="deleteData" /><span>Also delete downloaded files</span></label>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-ghost" id="removeCancelBtn">Cancel</button>
+      <button class="btn-danger" id="removeConfirmBtn">Remove</button>
+    </div>
+  </div>
+</div>
+
+<!-- DETAILS MODAL -->
+<div class="modal-overlay" id="detailsModal" role="dialog" aria-modal="true">
+  <div class="modal modal-lg">
+    <div class="modal-header">
+      <h2 id="detailsTitle">Torrent Details</h2>
+      <button class="modal-close" id="detailsModalClose"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+    </div>
+    <div class="modal-tabs-bar">
+      <button class="modal-tab active" data-dtab="general">General</button>
+      <button class="modal-tab" data-dtab="files">Files</button>
+      <button class="modal-tab" data-dtab="peers">Peers</button>
+      <button class="modal-tab" data-dtab="trackers">Trackers</button>
+    </div>
+    <div class="details-body" id="detailsBody">
+      <div class="details-loading">Loading…</div>
+    </div>
+  </div>
+</div>
+
+<!-- SETTINGS MODAL -->
+<div class="modal-overlay" id="settingsModal" role="dialog" aria-modal="true">
+  <div class="modal modal-lg">
+    <div class="modal-header">
+      <h2>Settings</h2>
+      <button class="modal-close" id="settingsModalClose"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+    </div>
+    <div class="modal-tabs-bar">
+      <button class="modal-tab active" data-stab="downloading">Downloading</button>
+      <button class="modal-tab" data-stab="speed">Speed</button>
+      <button class="modal-tab" data-stab="seeding">Seeding</button>
+      <button class="modal-tab" data-stab="peers">Peers</button>
+    </div>
+    <div class="details-body" id="settingsBody">
+      <div class="details-loading">Loading…</div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-ghost" id="settingsCancelBtn">Cancel</button>
+      <button class="btn-primary" id="settingsSaveBtn">Save</button>
+    </div>
+  </div>
+</div>
+
+<div id="toastContainer" class="toast-container" aria-live="polite"></div>
+<script src="app.js"></script>
+</body>
+</html>
