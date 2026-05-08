@@ -1,3 +1,3 @@
 # Transmission-Fresh-UI
 
-<img width="1914" height="916" alt="image" src="https://github.com/user-attachments/assets/06f4821e-3ae7-4b5d-8d4c-3665a7354f44" />
+<img width="1915" height="2027" alt="image" src="https://github.com/user-attachments/assets/2b0019ef-67a9-4f79-aae3-2ff0d0094471" />
